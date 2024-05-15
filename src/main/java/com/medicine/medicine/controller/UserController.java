@@ -35,7 +35,7 @@ public class UserController {
         }
 
         else{
-            LoginResponseDTO responseDTO = new LoginResponseDTO(loginUser.getNickname());
+            LoginResponseDTO responseDTO = new LoginResponseDTO(loginUser.getLoginid(), loginUser.getNickname());
             return ResponseEntity.ok(responseDTO);
         }
     }
