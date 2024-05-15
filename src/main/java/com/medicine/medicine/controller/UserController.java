@@ -27,10 +27,16 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginResponseDTO> login(@PathVariable LoginRequestDTO request){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request){
         UserEntity loginUser = userService.login(request);
-        LoginResponseDTO responseDTO = new LoginResponseDTO(loginUser.getNickname());
 
-        return ResponseEntity.ok(responseDTO);
+        if(loginUser == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        else{
+            LoginResponseDTO responseDTO = new LoginResponseDTO(loginUser.getNickname());
+            return ResponseEntity.ok(responseDTO);
+        }
     }
 }

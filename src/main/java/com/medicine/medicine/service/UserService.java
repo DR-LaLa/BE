@@ -20,7 +20,9 @@ public class UserService {
     }
 
     public UserEntity login(LoginRequestDTO request){
-        Optional<UserEntity> optionalUser = userRepository.findByLoginId(request.getLoginid());
+
+        Optional<UserEntity> optionalUser = userRepository.findByLoginid(request.getLoginid());
+//        Optional<UserEntity> optionalId = userRepository.findById(request.getId());
 
         if(optionalUser.isEmpty()){
             return null;
