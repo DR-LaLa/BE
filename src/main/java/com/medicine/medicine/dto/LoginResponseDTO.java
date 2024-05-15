@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LoginResponseDTO {
 
+    private String loginid;
+
     private String nickname;
 
 }

@@ -1,5 +1,6 @@
 package com.medicine.medicine.service;
 
+import com.medicine.medicine.dto.ConfirmIdRequestDTO;
 import com.medicine.medicine.dto.LoginRequestDTO;
 import com.medicine.medicine.dto.SignupRequestDTO;
 import com.medicine.medicine.entity.UserEntity;
@@ -22,7 +23,6 @@ public class UserService {
     public UserEntity login(LoginRequestDTO request){
 
         Optional<UserEntity> optionalUser = userRepository.findByLoginid(request.getLoginid());
-//        Optional<UserEntity> optionalId = userRepository.findById(request.getId());
 
         if(optionalUser.isEmpty()){
             return null;
