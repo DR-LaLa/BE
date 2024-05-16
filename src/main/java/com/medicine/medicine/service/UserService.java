@@ -36,4 +36,11 @@ public class UserService {
 
         return userEntity;
     }
+
+    public boolean confirmId(ConfirmIdRequestDTO request){
+
+        Optional<UserEntity> optionalUser = userRepository.findByLoginid(request.getLoginid());
+
+        return optionalUser.isEmpty();
+    }
 }

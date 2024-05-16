@@ -1,8 +1,6 @@
 package com.medicine.medicine.controller;
 
-import com.medicine.medicine.dto.LoginRequestDTO;
-import com.medicine.medicine.dto.LoginResponseDTO;
-import com.medicine.medicine.dto.SignupRequestDTO;
+import com.medicine.medicine.dto.*;
 import com.medicine.medicine.entity.UserEntity;
 import com.medicine.medicine.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +36,14 @@ public class UserController {
             LoginResponseDTO responseDTO = new LoginResponseDTO(loginUser.getLoginid(), loginUser.getNickname());
             return ResponseEntity.ok(responseDTO);
         }
+    }
+
+    @PostMapping("/signup/confirmid")
+    public ResponseEntity<ConfirmIdResponseDTO> confirmId(@RequestBody ConfirmIdRequestDTO request){
+        boolean isSuccess = userService.confirmId(request);
+
+        ConfirmIdResponseDTO response = new ConfirmIdResponseDTO(isSuccess);
+
+        return ResponseEntity.ok(response);
     }
 }
