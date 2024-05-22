@@ -33,8 +33,8 @@ public class UserController {
         }
 
         else{
-            LoginResponseDTO responseDTO = new LoginResponseDTO(loginUser.getLoginid(), loginUser.getNickname());
-            return ResponseEntity.ok(responseDTO);
+            LoginResponseDTO response = new LoginResponseDTO(loginUser.getLoginid(), loginUser.getNickname());
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -43,6 +43,16 @@ public class UserController {
         boolean isSuccess = userService.confirmId(request);
 
         ConfirmIdResponseDTO response = new ConfirmIdResponseDTO(isSuccess);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/main/quizcount/{loginid}")
+    public ResponseEntity<QuizCountResponseDTO> quizCount(@PathVariable String loginid){
+
+        Integer count =  userService.quizCount(loginid);
+
+        QuizCountResponseDTO response = new QuizCountResponseDTO(count);
 
         return ResponseEntity.ok(response);
     }

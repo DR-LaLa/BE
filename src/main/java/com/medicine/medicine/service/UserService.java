@@ -43,4 +43,16 @@ public class UserService {
 
         return optionalUser.isEmpty();
     }
+
+    public Integer quizCount(String loginid){
+
+        Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
+
+        if(!optionalUser.isEmpty()){
+            return optionalUser.get().getCount();
+        }
+        else{
+            return  null;
+        }
+    }
 }
