@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Example")
 @Getter
 @NoArgsConstructor
 public class ExampleEntity {
