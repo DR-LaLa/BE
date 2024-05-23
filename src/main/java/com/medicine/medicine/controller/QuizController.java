@@ -1,7 +1,6 @@
 package com.medicine.medicine.controller;
 import com.medicine.medicine.entity.ExampleEntity;
 import com.medicine.medicine.entity.QuizEntity;
-import com.medicine.medicine.entity.UserEntity;
 import com.medicine.medicine.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
