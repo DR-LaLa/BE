@@ -64,6 +64,17 @@ public class UserService {
         if(optionalUser.isPresent()){
             UserEntity userEntity = optionalUser.get();
             userEntity.setCount(count);
+
+            int newLevel;
+
+            if(count%30==0){
+                newLevel = (count / 30) - 1;
+            }
+            else{
+                newLevel = count / 30;
+            }
+            userEntity.setLevel(newLevel);
+
             return userRepository.save(userEntity);
         }
         else{
