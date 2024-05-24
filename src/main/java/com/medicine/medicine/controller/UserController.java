@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PutMapping("/main/update/{loginid}")
-    public UserEntity updateCount(@PathVariable String loginid, @RequestBody UpdateCountRequestDTO request){
-        return userService.updateCount(loginid, request.getCount());
+    public ResponseEntity<Void> updateCount(@PathVariable String loginid, @RequestBody UpdateCountRequestDTO request){
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
