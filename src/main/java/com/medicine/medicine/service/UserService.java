@@ -55,4 +55,19 @@ public class UserService {
             return  null;
         }
     }
+
+    //퀴즈 count 업데이트 기능 구현중
+    public UserEntity updateCount(String loginid, int count){
+
+        Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
+
+        if(optionalUser.isPresent()){
+            UserEntity userEntity = optionalUser.get();
+            userEntity.setCount(count);
+            return userRepository.save(userEntity);
+        }
+        else{
+            throw new RuntimeException("User not found with loginid: " + loginid);
+        }
+    }
 }
