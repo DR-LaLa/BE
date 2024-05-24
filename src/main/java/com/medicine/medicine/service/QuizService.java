@@ -3,9 +3,11 @@ package com.medicine.medicine.service;
 import com.medicine.medicine.entity.ExampleEntity;
 import com.medicine.medicine.entity.QuizEntity;
 import com.medicine.medicine.entity.SeenQuizEntity;
+import com.medicine.medicine.entity.UserEntity;
 import com.medicine.medicine.repository.ExampleRepository;
 import com.medicine.medicine.repository.QuizRepository;
 import com.medicine.medicine.repository.SeenQuizRepository;
+import com.medicine.medicine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,7 +77,12 @@ public class QuizService {
 
     public UserEntity getUserByLoginid(String loginid) {
         System.out.println("Fetching user with loginid: " + loginid);
-        return userRepository.findByLoginid(loginid);
+
+        Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
+
+        UserEntity userEntity = optionalUser.get();
+
+        return userEntity;
     }
 
     private QuizEntity getQuiz(Long id) {
