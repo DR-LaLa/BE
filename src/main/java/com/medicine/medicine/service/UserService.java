@@ -8,6 +8,7 @@ import com.medicine.medicine.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class UserService {
 
         Optional<UserEntity> optionalUser = userRepository.findByLoginid(request.getLoginid());
 
+
         if(optionalUser.isEmpty()){
             return null;
         }
@@ -33,6 +35,7 @@ public class UserService {
         if(!userEntity.getPassword().equals(request.getPassword())){
             return null;
         }
+
 
         return userEntity;
     }
@@ -56,7 +59,6 @@ public class UserService {
         }
     }
 
-    //퀴즈 count 업데이트 기능 구현중
     public UserEntity updateCount(String loginid, int count){
 
         Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
