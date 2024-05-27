@@ -33,21 +33,21 @@ public class QuizService {
     public QuizEntity getRandomQuizExcludingSeen(UserEntity user) {
         List<Long> seenQuizIds = seenQuizRepository.findQuizIdsByUserId(user.getId());
         if (seenQuizIds == null || seenQuizIds.isEmpty()) {
-            //System.out.println("Fetching a random quiz (no excluded IDs)");
+            System.out.println("Fetching a random quiz (no excluded IDs)");
             Optional<QuizEntity> quiz = quizRepository.findRandomQuiz();
             if (quiz.isPresent()) {
-                //System.out.println("Found quiz with ID: " + quiz.get().getId());
+                System.out.println("Found quiz with ID: " + quiz.get().getId());
             } else {
-                //System.out.println("No quizzes found.");
+                System.out.println("No quizzes found.");
             }
             return quiz.orElse(null);
         } else {
-            //System.out.println("Fetching a random quiz excluding IDs: " + seenQuizIds);
+            System.out.println("Fetching a random quiz excluding IDs: " + seenQuizIds);
             Optional<QuizEntity> quiz = quizRepository.findRandomQuizExcludingIds(seenQuizIds);
             if (quiz.isPresent()) {
-                //System.out.println("Found quiz with ID: " + quiz.get().getId());
+                System.out.println("Found quiz with ID: " + quiz.get().getId());
             } else {
-                //System.out.println("No quizzes found.");
+                System.out.println("No quizzes found.");
             }
             return quiz.orElse(null);
         }
@@ -67,7 +67,7 @@ public class QuizService {
     }
 
     public ExampleEntity getExample(Long quizId) {
-        //System.out.println("Fetching example for quiz ID: " + quizId);
+        System.out.println("Fetching example for quiz ID: " + quizId);
         QuizEntity quiz = getQuiz(quizId);
         if (quiz != null) {
             return exampleRepository.findByQuiz(quiz);
@@ -76,9 +76,12 @@ public class QuizService {
     }
 
     public UserEntity getUserByLoginid(String loginid) {
-        //System.out.println("Fetching user with loginid: " + loginid);
+        System.out.println("Fetching user with loginid: " + loginid);
+
         Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
+
         UserEntity userEntity = optionalUser.get();
+
         return userEntity;
     }
 
