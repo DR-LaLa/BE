@@ -16,12 +16,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserEntity> addUser(@RequestBody SignupRequestDTO request){
+    public ResponseEntity<Void> addUser(@RequestBody SignupRequestDTO request){
         UserEntity signupUser = userService.signup(request);
 
+        return ResponseEntity.noContent().build();
 //        return ResponseEntity.ok().build();
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(signupUser);
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body(signupUser);
     }
 
     @PostMapping("/signin")
