@@ -42,12 +42,12 @@ public class QuizController {
 
             QuizEntity quiz = quizService.getRandomQuizExcludingSeen(user);
             if (quiz != null) {
-                //System.out.println("Found quiz: " + quiz.getProblem());
+               // System.out.println("Found quiz: " + quiz.getProblem());
                 ExampleEntity example = quizService.getExample(quiz.getId());
                 if (example != null) {
                     //System.out.println("Found example for quiz ID " + quiz.getId() + ": " + example.getAnswer());
 
-                    // Mark the quiz as seen for the user
+                    //Mark the quiz as seen for the user
                     quizService.markQuizAsSeen(user, quiz);
 
                     UserDTO userDTO = new UserDTO(count);

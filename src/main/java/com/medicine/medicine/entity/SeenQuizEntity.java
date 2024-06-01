@@ -1,9 +1,13 @@
 package com.medicine.medicine.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "SeenQuiz")
+@Table(name = "seenquiz")
+@Setter
+@Getter
 public class SeenQuizEntity {
 
     @Id
@@ -11,7 +15,7 @@ public class SeenQuizEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "loginid", referencedColumnName = "loginid")
     private UserEntity user;
 
     @ManyToOne
@@ -22,30 +26,6 @@ public class SeenQuizEntity {
 
     public SeenQuizEntity(UserEntity user, QuizEntity quiz) {
         this.user = user;
-        this.quiz = quiz;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public QuizEntity getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(QuizEntity quiz) {
         this.quiz = quiz;
     }
 }

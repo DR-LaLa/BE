@@ -31,7 +31,7 @@ public class QuizService {
     private SeenQuizRepository seenQuizRepository;
 
     public QuizEntity getRandomQuizExcludingSeen(UserEntity user) {
-        List<Long> seenQuizIds = seenQuizRepository.findQuizIdsByUserId(user.getId());
+        List<Long> seenQuizIds = seenQuizRepository.findQuizIdsByLoginId(user.getLoginid());
         if (seenQuizIds == null || seenQuizIds.isEmpty()) {
             System.out.println("Fetching a random quiz (no excluded IDs)");
             Optional<QuizEntity> quiz = quizRepository.findRandomQuiz();
@@ -54,12 +54,13 @@ public class QuizService {
     }
 
     public void markQuizAsSeen(UserEntity user, QuizEntity quiz) {
+        //System.out.println("Marking quiz as seen for user: " + user.getLoginid() + " and quiz ID: " + quiz.getId());
         SeenQuizEntity seenQuiz = new SeenQuizEntity(user, quiz);
         seenQuizRepository.save(seenQuiz);
     }
 
     public List<Long> getSeenQuizIds(UserEntity user) {
-        List<Long> seenQuizIds = seenQuizRepository.findQuizIdsByUserId(user.getId());
+        List<Long> seenQuizIds = seenQuizRepository.findQuizIdsByLoginId(user.getLoginid());
         if (seenQuizIds == null) {
             seenQuizIds = new ArrayList<>();
         }
