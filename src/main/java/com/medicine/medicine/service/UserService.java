@@ -3,6 +3,7 @@ package com.medicine.medicine.service;
 import com.medicine.medicine.dto.ConfirmIdRequestDTO;
 import com.medicine.medicine.dto.LoginRequestDTO;
 import com.medicine.medicine.dto.SignupRequestDTO;
+import com.medicine.medicine.dto.UpdateCountRequestDTO;
 import com.medicine.medicine.entity.UserEntity;
 import com.medicine.medicine.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,11 @@ public class UserService {
 
     public UserEntity login(LoginRequestDTO request){
 
-        Optional<UserEntity> optionalUser = userRepository.findByLoginid(request.getLoginid());
-
-        if(optionalUser.isEmpty()){
-            return null;
-        }
-
-        UserEntity userEntity = optionalUser.get();
+        UserEntity userEntity = userRepository.findByLoginid(request.getLoginid())
+                .orElseThrow(() -> new RuntimeException("User not found with login id: " + request.getLoginid()));
 
         if(!userEntity.getPassword().equals(request.getPassword())){
-            return null;
+            throw new RuntimeException("Invalid password for login id: " + request.getLoginid());
         }
 
         return userEntity;
@@ -46,22 +42,23 @@ public class UserService {
 
     public Integer quizCount(String loginid){
 
-        Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
+        UserEntity userEntity = userRepository.findByLoginid(loginid)
+                .orElseThrow(() -> new RuntimeException("User not found with login id: " + loginid));
 
-        if(!optionalUser.isEmpty()){
-            return optionalUser.get().getCount();
-        }
-        else{
-            return  null;
-        }
+        return userEntity.getCount();
     }
 
-    //퀴즈 count 업데이트 기능 구현중
-    public UserEntity updateCount(String loginid, int count){
+    public UserEntity updateCount(String loginid, UpdateCountRequestDTO request){
 
-        Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);
+        UserEntity userEntity = userRepository.findByLoginid(loginid)
+                .orElseThrow(() -> new RuntimeException("User not found with loginid: " + loginid));
 
-        if(optionalUser.isPresent()){
+        userEntity.setCount(request.getCount());
+
+        return userRepository.save(userEntity);
+
+/*
+            Optional<UserEntity> optionalUser = userRepository.findByLoginid(loginid);if(optionalUser.isPresent()){
             UserEntity userEntity = optionalUser.get();
             userEntity.setCount(count);
 
@@ -79,6 +76,6 @@ public class UserService {
         }
         else{
             throw new RuntimeException("User not found with loginid: " + loginid);
-        }
+        }*/
     }
 }

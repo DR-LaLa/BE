@@ -16,12 +16,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserEntity> addUser(@RequestBody SignupRequestDTO request){
+    public ResponseEntity<Void> addUser(@RequestBody SignupRequestDTO request){
         UserEntity signupUser = userService.signup(request);
 
-//        return ResponseEntity.ok().build();
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(signupUser);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/signin")
@@ -32,10 +30,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
-        else{
-            LoginResponseDTO response = new LoginResponseDTO(loginUser.getLoginid(), loginUser.getNickname());
-            return ResponseEntity.ok(response);
-        }
+        LoginResponseDTO response = new LoginResponseDTO(loginUser.getLoginid(), loginUser.getNickname());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/signup/confirmid")
@@ -59,6 +56,9 @@ public class UserController {
 
     @PutMapping("/main/update/{loginid}")
     public ResponseEntity<Void> updateCount(@PathVariable String loginid, @RequestBody UpdateCountRequestDTO request){
+
+        UserEntity updatedUser = userService.updateCount(loginid, request);
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

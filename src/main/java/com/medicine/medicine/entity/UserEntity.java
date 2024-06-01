@@ -36,4 +36,18 @@ public class UserEntity {
         this.count = count;
         this.level = level;
     }
+
+    @PrePersist
+    @PreUpdate
+    public void calculateLevel(){
+        int count = this.count;
+
+        int newLevel = count/30;
+
+        if (count % 30 == 0 && count != 0) {
+            newLevel--;
+        }
+
+        this.level = newLevel;
+    }
 }
