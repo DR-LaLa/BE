@@ -13,7 +13,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class RankController{
 
     private final RankService rankService;
