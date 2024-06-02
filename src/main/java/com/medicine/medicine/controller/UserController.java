@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
