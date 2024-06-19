@@ -1,11 +1,14 @@
 package com.medicine.medicine.service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medicine.medicine.dto.MedicineInfoResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -21,8 +24,9 @@ public class MedicineInfoService {
 
     private final RestTemplate restTemplate;
 
-    public List<MedicineInfoResponseDTO> getMedicineInfo(String itemName, String apiUrl) {
-        String response = restTemplate.getForObject(apiUrl, String.class);
+    public List<MedicineInfoResponseDTO> getMedicineInfo(String itemName, String apiUrl) throws URISyntaxException {
+        URI uri = new URI(apiUrl);
+        String response = restTemplate.getForObject(uri, String.class);
 
         List<MedicineInfoResponseDTO> medicineInfoList = new ArrayList<>();
 
