@@ -38,4 +38,6 @@ out/
 
 ### database ###
 application.yml
+application-aws.yml
+application-local.yml
 application.properties
